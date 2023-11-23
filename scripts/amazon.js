@@ -1,6 +1,6 @@
 let productsHtml = '';
 
-products.forEach((product) => {
+products.forEach((product) => { //generating the HTML for list products and its datas.
     productsHtml += `
         <div class="product-container">
             <div class="product-image-container">
@@ -54,8 +54,15 @@ products.forEach((product) => {
     `;
 });
 
+//Using DOM innerHtml to input the generated html in js-product-grid.
 document.querySelector('.js-product-grid').innerHTML = productsHtml;
 
+//Here we are making the Add to Cart button interactive,
+//Here product ID is used to find out the clicked product,
+//If we click the button the specified product should be added to the cart,
+//If same product is added  in the cart the Quantity should be increases,
+//Created a cart js file to store the added product as a array in object, 
+//by loop through the items using forEach loop
 document.querySelectorAll('.js-add-cart-button')
   .forEach((button) => {
     button.addEventListener('click', () => {
@@ -63,7 +70,9 @@ document.querySelectorAll('.js-add-cart-button')
 
         let matchingItem;
         cart.forEach((item) => {
-            if (productId === item.productId) {
+            //checking the productID is matching with items productID,
+            //If both ID are matched store the item to the matchingID.
+            if (productId === item.productId) { 
                 matchingItem = item;
             }
         });
@@ -72,6 +81,7 @@ document.querySelectorAll('.js-add-cart-button')
             //increasing the matchingItem quantity
             matchingItem.quantity += 1;
         } else {
+            //ow push the products to the cart
             cart.push({
                 productId: productId,
                 quantity: 1
